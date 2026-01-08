@@ -1632,6 +1632,43 @@
                     ]
                 }
             ]
+        },
+        {
+            "tags": ["QUIVER"],
+            "data": [
+                {
+                    "data": [
+                        {
+                            "id": "aqv",
+                            "name": "Blunt Arrows"
+                        },
+                        {
+                            "id": "aqv2",
+                            "name": "Sharp Arrows"
+                        },
+                        {
+                            "id": "aqv3",
+                            "name": "Razor Arrows"
+                        }
+                    ]
+                },
+                {
+                    "data": [
+                        {
+                            "id": "cqv",
+                            "name": "Light Bolts"
+                        },
+                        {
+                            "id": "cqv2",
+                            "name": "Heavy Bolts"
+                        },
+                        {
+                            "id": "cqv3",
+                            "name": "War Bolts"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

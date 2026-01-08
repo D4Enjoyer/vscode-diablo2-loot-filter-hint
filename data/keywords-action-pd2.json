@@ -5,8 +5,6 @@
             "name": "Dark Green color"
         },
 
-
-
         {
             "id": "QTY",
             "name": "Quantity"
@@ -27,8 +25,6 @@
             "id": "WPNSPD",
             "name": "Weapon speed modifier"
         },
-
-
 
         {
             "id": "MAP",
@@ -63,8 +59,6 @@
             "name": "Map notification setting (00-FF)"
         },
 
-
-
         {
             "id": "NOTIFY-0",
             "name": "Map notification setting (0-F)"
@@ -72,6 +66,35 @@
         {
             "id": "NOTIFY-DEAD",
             "name": "Map notification setting"
+        },
+        {
+            "id": "SOUNDID-0",
+            "name": "Play sound notification (0-F)"
+        },
+
+        {
+            "id": "BASENAME",
+            "name": "Base name of the item (e.g. 'Dusk Shroud')"
+        },
+        {
+            "id": "REROLLALVL",
+            "name": "Affix level after rerolling with standard recipe"
+        },
+        {
+            "id": "SELLPRICE",
+            "name": "Selling price (identical to %PRICE%)"
+        },
+        {
+            "id": "BUYPRICE",
+            "name": "Buy price from vendor"
+        },
+        {
+            "id": "CRAFTALVL",
+            "name": "Prospective crafted ALVL if used as ingredient"
+        },
+        {
+            "id": "LVLREQ",
+            "name": "Level requirement (0-99)"
         }
     ]
 }

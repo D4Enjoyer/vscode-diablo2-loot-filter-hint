@@ -7,6 +7,10 @@
       "prefix": "idfn",
       "body": "ItemDisplayFilterName[$0]: "
     },
+    "Alias": {
+      "prefix": "alias",
+      "body": "Alias[$0]: "
+    },
     "Begin Region": {
       "prefix": "region",
       "body": "//#region $0"

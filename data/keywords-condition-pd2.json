@@ -5,8 +5,6 @@
             "name": "Crafted items"
         },
 
-
-
         {
             "id": "DRU",
             "name": "Druid pelts"
@@ -129,8 +127,6 @@
             "id": "SCEPTER",
             "name": "Scepters"
         },
-        
-
 
         {
             "id": "HELM",
@@ -161,8 +157,6 @@
             "name": "Circlets"
         },
 
-
-
         {
             "id": "ALVL",
             "name": "Affix level"
@@ -183,8 +177,6 @@
             "id": "CRAFTALVL",
             "name": "Crafting affix level"
         },
-
-
 
         {
             "id": "MANA",
@@ -290,6 +282,100 @@
         {
             "id": "FILTLVL",
             "name": "Filter strictness level 0-9"
+        },
+        {
+            "id": "REROLLALVL",
+            "name": "Affix level after rerolling with standard reroll recipe"
+        },
+
+        {
+            "id": "TRUE",
+            "name": "Always true (for use with aliases)"
+        },
+        {
+            "id": "FALSE",
+            "name": "Always false (for use with aliases)"
+        },
+
+        {
+            "id": "MERC",
+            "name": "Item is equipped on mercenary"
+        },
+        {
+            "id": "INVENTORY",
+            "name": "Item is in inventory"
+        },
+        {
+            "id": "CUBE",
+            "name": "Item is in Horadric Cube"
+        },
+        {
+            "id": "STASH",
+            "name": "Item is in stash"
+        },
+        {
+            "id": "GROUND",
+            "name": "Item is on the ground"
+        },
+
+        {
+            "id": "QUIVER",
+            "name": "Arrows and bolts"
+        },
+        {
+            "id": "JEWELRY",
+            "name": "Rings and amulets"
+        },
+        {
+            "id": "CHARM",
+            "name": "Small, large and grand charms"
+        },
+        {
+            "id": "MISC",
+            "name": "Misc items (potions, gems, runes, ingredients, quest items)"
+        },
+
+        {
+            "id": "GEMMED",
+            "name": "Socketed with a gem, rune, or jewel"
+        },
+        {
+            "id": "SOCKETS",
+            "name": "Total socket count (alias for SOCK)"
+        },
+        {
+            "id": "GEM",
+            "name": "Gem quality level 1-5 (alias for GEMLEVEL)"
+        },
+
+        {
+            "id": "1H",
+            "name": "1-handed weapons"
+        },
+        {
+            "id": "2H",
+            "name": "2-handed weapons"
+        },
+        {
+            "id": "CLUB",
+            "name": "Clubs (mace subtype)"
+        },
+        {
+            "id": "TMACE",
+            "name": "Tipped maces (mace subtype)"
+        },
+        {
+            "id": "HAMMER",
+            "name": "Hammers (mace subtype)"
+        },
+
+        {
+            "id": "STAT",
+            "name": "Stat"
+        },
+        {
+            "id": "MULTI",
+            "name": "Multi-layered stats"
         }
     ]
 }

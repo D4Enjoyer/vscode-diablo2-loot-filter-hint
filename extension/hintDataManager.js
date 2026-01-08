@@ -50,11 +50,18 @@ const ITEM_TIERS = {
 
 const RELATED_ITEMS_LIMIT = 5;
 
+const LINE_TYPES = [
+    { id: 'ItemDisplay', description: 'Define how an item should be displayed based on conditions' },
+    { id: 'ItemDisplayFilterName', description: 'Name a filter rule for organization and documentation' },
+    { id: 'Alias', description: 'Define a custom alias for text replacement (Find-and-Replace when filter loads)' }
+];
+
 let currentFilterType = null;
 
 let completionItems = [],
     completionConditionKeywords = [],
     completionActionKeywords = [],
+    completionLineTypes = [],
     conditionHoverItems = [],
     actionHoverItems = [],
     keywordNames = [];
@@ -72,9 +79,19 @@ function init(filterType) {
     completionItems = [];
     completionConditionKeywords = [];
     completionActionKeywords = [];
+    completionLineTypes = [];
     conditionHoverItems = [];
     actionHoverItems = [];
     keywordNames = [];
+
+    // Build line type completions
+    LINE_TYPES.forEach(lineType => {
+        const item = new vscode.CompletionItem(lineType.id, vscode.CompletionItemKind.Snippet);
+        item.insertText = new vscode.SnippetString(`${lineType.id}[$1]: $0`);
+        item.detail = lineType.description;
+        item.documentation = new vscode.MarkdownString(`Creates a new \`${lineType.id}\` line.\n\n${lineType.description}`);
+        completionLineTypes.push(item);
+    });
 
     let keywordsConditionDataFiles = KEYWORDS_CONDITION_DATA_FILES,
         keywordsActionDataFiles = KEYWORDS_ACTION_DATA_FILES,
@@ -253,6 +270,8 @@ module.exports = {
     getCompletionItems : () => completionItems,
     getCompletionConditionKeywords : () => completionConditionKeywords,
     getCompletionActionKeywords : () => completionActionKeywords,
+    getCompletionAllKeywords : () => [...completionConditionKeywords, ...completionActionKeywords],
+    getCompletionLineTypes : () => completionLineTypes,
     
     getConditionHoverItem,
     getActionHoverItem

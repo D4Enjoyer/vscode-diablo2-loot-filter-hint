@@ -2,11 +2,11 @@
     "data": [
         {
             "id": "GREEN",
-            "name": "Green color"
+            "name": "Green color (set items)"
         },
         {
             "id": "GOLD",
-            "name": "Gold color"
+            "name": "Gold color (unique items, runeword names)"
         },
         {
             "id": "TAN",
@@ -14,15 +14,15 @@
         },
         {
             "id": "BLUE",
-            "name": "Blue color"
+            "name": "Blue color (magic items, item descriptions)"
         },
         {
             "id": "GRAY",
-            "name": "Gray color"
+            "name": "Gray color (ethereal/socketed items)"
         },
         {
             "id": "WHITE",
-            "name": "White color"
+            "name": "White color (regular items)"
         },
         {
             "id": "BLACK",
@@ -30,11 +30,11 @@
         },
         {
             "id": "YELLOW",
-            "name": "Yellow color"
+            "name": "Yellow color (rare items)"
         },
         {
             "id": "ORANGE",
-            "name": "Orange color"
+            "name": "Orange color (crafted items, runes)"
         },
         {
             "id": "PURPLE",
@@ -42,10 +42,8 @@
         },
         {
             "id": "RED",
-            "name": "RED color"
+            "name": "Red color (broken/unusable items)"
         },
-
-
 
         {
             "id": "CODE",
@@ -88,11 +86,29 @@
             "name": "Continue processing loot filter even after condition match"
         },
 
-
-
         {
             "id": "NL",
             "name": "New line"
+        },
+        {
+            "id": "CL",
+            "name": "Conditional new line (only if not already at start of line)"
+        },
+        {
+            "id": "CORAL",
+            "name": "Coral color"
+        },
+        {
+            "id": "SAGE",
+            "name": "Sage color"
+        },
+        {
+            "id": "TEAL",
+            "name": "Teal color"
+        },
+        {
+            "id": "LIGHT_GRAY",
+            "name": "Light Gray color"
         }
     ]
 }

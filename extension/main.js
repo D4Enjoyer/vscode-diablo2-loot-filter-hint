@@ -1,5 +1,5 @@
-const vscode = require('vscode');
-const hintDataManager = require('./hintDataManager');
+const vscode = require("vscode");
+const hintDataManager = require("./hintDataManager");
 
 const DOCUMENT_SELECTOR = [hintDataManager.FILTER_TYPE_POD, hintDataManager.FILTER_TYPE_PD2];
 
@@ -10,7 +10,7 @@ const DOCUMENT_SELECTOR = [hintDataManager.FILTER_TYPE_POD, hintDataManager.FILT
  */
 function getTextAtCursor(document, position) {
     const range = new vscode.Range(position, new vscode.Position(position.line, position.character + 1));
-	return document.getText(range);
+    return document.getText(range);
 }
 
 /**
@@ -19,16 +19,16 @@ function getTextAtCursor(document, position) {
  * @returns {string}
  */
 function getTextBeforeCursor(document, position) {
-	var start = new vscode.Position(position.line, 0);
-	var range = new vscode.Range(start, position);
-	return document.getText(range);
+    var start = new vscode.Position(position.line, 0);
+    var range = new vscode.Range(start, position);
+    return document.getText(range);
 }
 
 /**
  * @param {string} text
  * @returns {boolean}
  */
-function hasTextComment(text = '') {
+function hasTextComment(text = "") {
     return text.match(/\/\//);
 }
 
@@ -36,7 +36,7 @@ function hasTextComment(text = '') {
  * @param {string} text
  * @returns {boolean}
  */
-function isTextInCondition(text = '') {
+function isTextInCondition(text = "") {
     return text.match(/^ItemDisplay\[[^\]]*$/);
 }
 
@@ -44,7 +44,7 @@ function isTextInCondition(text = '') {
  * @param {string} text
  * @returns {boolean}
  */
-function isTextInAction(text = '') {
+function isTextInAction(text = "") {
     return text.match(/^ItemDisplay\[[^\]]*\]:/);
 }
 
@@ -52,12 +52,37 @@ function isTextInAction(text = '') {
  * @param {string} text
  * @returns {boolean}
  */
-function isTextPossibleKeyword(text = '') {
+function isTextInAliasName(text = "") {
+    return text.match(/^Alias\[[^\]]*$/);
+}
+
+/**
+ * @param {string} text
+ * @returns {boolean}
+ */
+function isTextInAliasContent(text = "") {
+    return text.match(/^Alias\[[^\]]*\]:/);
+}
+
+/**
+ * @param {string} text
+ * @returns {boolean}
+ */
+function isTextAtLineStart(text = "") {
+    // Match empty line, or line with only a partial word (no '[' yet means not inside condition/action)
+    return text.match(/^\s*$/) || text.match(/^\s*[A-Za-z]+$/);
+}
+
+/**
+ * @param {string} text
+ * @returns {boolean}
+ */
+function isTextPossibleKeyword(text = "") {
     return text.match(/^[A-Z0-9_-]+$/);
 }
 
 function activate(context) {
-    let subscriptions = context.subscriptions
+    let subscriptions = context.subscriptions;
     let disposable = [];
 
     // completion provider
@@ -74,20 +99,36 @@ function activate(context) {
             const word = document.getText(wordRange);
 
             if (isTextInCondition(textBeforeCursor)) {
-                return isTextPossibleKeyword(word) ? hintDataManager.getCompletionConditionKeywords() : hintDataManager.getCompletionItems();
+                return isTextPossibleKeyword(word)
+                    ? hintDataManager.getCompletionConditionKeywords()
+                    : hintDataManager.getCompletionItems();
             }
 
             if (isTextInAction(textBeforeCursor)) {
                 return isTextPossibleKeyword(word) ? hintDataManager.getCompletionActionKeywords() : null;
             }
 
+            // Alias name (inside brackets) - no completions, it's just a string identifier
+            if (isTextInAliasName(textBeforeCursor)) {
+                return null;
+            }
+
+            // Alias content (after colon) - can be conditions OR actions
+            if (isTextInAliasContent(textBeforeCursor)) {
+                return isTextPossibleKeyword(word) ? hintDataManager.getCompletionAllKeywords() : hintDataManager.getCompletionItems();
+            }
+
+            if (isTextAtLineStart(textBeforeCursor)) {
+                return hintDataManager.getCompletionLineTypes();
+            }
+
             return null;
-        }
+        },
     });
 
     // hover provider
-	disposable[1] = vscode.languages.registerHoverProvider(DOCUMENT_SELECTOR, {
-		provideHover: (document, position) => {
+    disposable[1] = vscode.languages.registerHoverProvider(DOCUMENT_SELECTOR, {
+        provideHover: (document, position) => {
             // ignore non-alphanumeric character
             const char = getTextAtCursor(document, position);
             if (!char.match(/\w/)) {
@@ -112,15 +153,20 @@ function activate(context) {
                 hover = hintDataManager.getActionHoverItem(word);
             }
 
+            // Alias content can be either conditions or actions
+            if (isTextInAliasContent(textBeforeCursor)) {
+                hover = hintDataManager.getConditionHoverItem(word) || hintDataManager.getActionHoverItem(word);
+            }
+
             // return clone to avoid positioning bug
-            return hover ? {...hover} : null;
-        }
+            return hover ? { ...hover } : null;
+        },
     });
-    
+
     subscriptions.push(...disposable);
 }
 
-function deactivate() { }
+function deactivate() {}
 
 exports.activate = activate;
 exports.deactivate = deactivate;

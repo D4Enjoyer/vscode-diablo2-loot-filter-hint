@@ -2,112 +2,169 @@
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "pd2lootfilter",
     "patterns": [
+        { "include": "#alias" },
+        { "include": "#alias-content" },
         { "include": "#item-display-condition" },
         { "include": "#item-display-filter-name" },
         { "include": "#item-display-action" },
         { "include": "#comment-line" }
     ],
     "repository": {
-        "item-display-filter-name":{
+        "alias": {
+            "begin": "Alias\\[",
+            "end": "(\\])(\\s)*(:)",
+            "endCaptures": {
+                "1": { "name": "punctuation.bracket" },
+                "3": { "name": "punctuation.separator" }
+            },
+            "patterns": [
+                {
+                    "name": "string.quoted",
+                    "match": "[^\\]\\n]+"
+                },
+                { "include": "#comment-line" }
+            ]
+        },
+        "alias-content": {
+            "begin": "(?<=Alias\\[[^\\]]*\\]:)",
+            "end": "(?=$|//)",
+            "patterns": [{ "include": "#condition" }, { "include": "#action-keyword" }]
+        },
+        "item-display-filter-name": {
             "begin": "ItemDisplayFilterName\\[",
             "end": "\\](\\s)*:",
-            "patterns": [
-                { "include": "#comment-line" }
-            ]
+            "patterns": [{ "include": "#comment-line" }]
         },
-        "item-display-condition":{
+        "item-display-condition": {
             "begin": "ItemDisplay\\[",
             "end": "\\](\\s)*:",
-            "patterns": [
-                { "include": "#condition" },
-                { "include": "#comment-line" }
-            ]
+            "patterns": [{ "include": "#condition" }, { "include": "#comment-line" }]
         },
-        "item-display-action":{
+        "item-display-action": {
             "patterns": [
                 { "include": "#action-keyword" },
                 { "include": "#action-string" },
                 { "include": "#comment-line" }
             ]
         },
-        "condition":{
+        "condition": {
             "patterns": [
-                { "include": "#condition-operator"},
-                { "include": "#condition-keyword"},
-                { "include": "#condition-id"},
-                { "include": "#condition-number"}
+                { "include": "#condition-operator" },
+                { "include": "#condition-keyword" },
+                { "include": "#condition-id" },
+                { "include": "#condition-number" }
             ]
         },
-        "condition-operator":{
-            "patterns": [{
-                "name": "support.module",
-                "match": "(!|<|>|=|OR|AND)"
-            }]
+        "condition-operator": {
+            "patterns": [
+                {
+                    "name": "support.module",
+                    "match": "(!|<|>|=|OR|AND)"
+                }
+            ]
         },
-        "condition-keyword":{
-            "patterns": [{
-                "name": "keyword",
-                "match": "(NORM|EXC|ELT|INF|SUP|MAG|RARE|SET|UNI|NMAG|ETH|RW|CRAFT)"
-            }, {
-                "name": "keyword",
-                "match": "(CL[1-7]|WP1[0-3]|WP[1-9]|WEAPON|EQ[1-7]|ARMOR)"
-            }, {
-                "name": "keyword",
-                "match": "(DRU|BAR|DIN|NEC|SIN|SOR|ZON|CLASS|HELM|CHEST|SHIELD|GLOVES|BOOTS|BELT|CIRC|AXE|MACE|SWORD|DAGGER|THROWING|JAV|SPEAR|POLEARM|BOW|XBOX|STAFF|WAND|SCEPTER)"
-            }, {
-                "name": "keyword",
-                "match": "(AMAZON|ASSASSIN|BARBARIAN|DRUID|NECROMANCER|PALADIN|SORCERESS|SHOP|EQUIPPED)"
-            }, {
-                "name": "keyword",
-                "match": "(CLVL|ILVL|ALVL|QLVL|QTY|SOCK|ID|GOLD|GEMLEVEL|GEMTYPE|RUNE|DIFF|LVLREQ|CRAFTALVL)"
-            }, {
-                "name": "keyword",
-                "match": "(ED|EDEF|EDAM|MAXDUR|AR|RES|DEF|LIFE|MANA|IAS|FCR|FHR|FBR|FRW|FRES|LRES|CRES|PRES|MINDMG|MAXDMG|MFIND|GFIND|STR|DEX|REPAIR|REPLIFE|MAEK|DTM|ARPER|FOOLS)"
-            }, {
-                "name": "keyword",
-                "match": "(ITEMSTAT[0-9]{0,3}|CHARSTAT[0-9]{1,3}|CLSK[0-6]|ALLSK|TABSK[0-9]{1,2}|SK[0-9]{2,3})"
-            }, {
-                "name": "keyword",
-                "match": "(MAPID|MAPTIER|PREFIX|SUFFIX|AUTOMOD|FILTLVL)"
-            }, {
-                "name": ""
-            }]
+        "condition-keyword": {
+            "patterns": [
+                {
+                    "name": "keyword",
+                    "match": "(NORM|EXC|ELT|INF|SUP|MAG|RARE|SET|UNI|NMAG|ETH|RW|CRAFT|GEMMED)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(CL[1-7]|WP1[0-3]|WP[1-9]|WEAPON|EQ[1-7]|ARMOR)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(DRU|BAR|DIN|NEC|SIN|SOR|ZON|CLASS|HELM|CHEST|SHIELD|GLOVES|BOOTS|BELT|CIRC|AXE|MACE|SWORD|DAGGER|THROWING|JAV|SPEAR|POLEARM|BOW|XBOW|STAFF|WAND|SCEPTER)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(AMAZON|ASSASSIN|BARBARIAN|DRUID|NECROMANCER|PALADIN|SORCERESS|SHOP|EQUIPPED)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(CLVL|ILVL|ALVL|QLVL|QTY|SOCK|SOCKETS|ID|GOLD|GEMLEVEL|GEM|GEMTYPE|RUNE|DIFF|LVLREQ|CRAFTALVL)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(ED|EDEF|EDAM|MAXDUR|AR|RES|DEF|LIFE|MANA|IAS|FCR|FHR|FBR|FRW|FRES|LRES|CRES|PRES|MINDMG|MAXDMG|MFIND|GFIND|STR|DEX|REPAIR|REPLIFE|MAEK|DTM|ARPER|FOOLS)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(STAT[0-9]{0,3}|ITEMSTAT[0-9]{0,3}|CHARSTAT[0-9]{1,3}|CLSK[0-6]|ALLSK|TABSK[0-9]{1,2}|SK[0-9]{2,3}|MULTI[0-9]{0,2})"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(MAPID|MAPTIER|PREFIX|SUFFIX|AUTOMOD|FILTLVL|REROLLALVL)"
+                },
+                {
+                    "name": "keyword",
+                    "match": "(TRUE|FALSE|MERC|INVENTORY|CUBE|STASH|GROUND|QUIVER|JEWELRY|CHARM|MISC|1H|2H|CLUB|TMACE|HAMMER)"
+                },
+                {
+                    "name": ""
+                }
+            ]
         },
-        "condition-id":{
-            "patterns": [{
-                "name": "storage.type",
-                "match": "\\b(?=[^\\s]*[a-z][^\\s]*)[a-z\\d]{3,4}\\b"
-            }]
+        "condition-id": {
+            "patterns": [
+                {
+                    "name": "storage.type",
+                    "match": "\\b(?=[^\\s]*[a-z][^\\s]*)[a-z\\d]{3,4}\\b"
+                }
+            ]
         },
-        "condition-number":{
-            "patterns": [{
-                "name": "constant.numeric",
-                "match": "([\\d+])"
-            }]
+        "condition-number": {
+            "patterns": [
+                {
+                    "name": "constant.numeric",
+                    "match": "([\\d+])"
+                }
+            ]
         },
-        "action-keyword":{
-            "patterns": [{
-                "name": "entity.name.function",
-                "match": "%(DARK_GREEN|GREEN|GOLD|TAN|BLUE|GRAY|WHITE|BLACK|YELLOW|ORANGE|PURPLE|RED|CORAL|SAGE|TEAL|LIGHT_GRAY)%"
-            }, {
-                "name": "variable.object.property",
-                "match": "%(PRICE|ILVL|SOCKETS|CODE|NAME|GEMTYPE|GEMLEVEL|RUNENAME|RUNENUM|QTY|ALVL|CLVL|RANGE|WPNSPD)%"
-            }, {
-                "name": "keyword.control",
-                "match": "%(CONTINUE|NL|CL)%"
-            }, {
-                "name": "entity.name.type.enum",
-                "match": "%(MAP(-[0-9A-F]{2})?|DOT(-[0-9A-F]{2})?|PX(-[0-9A-F]{2})?|BORDER(-[0-9A-F]{2})?)%"
-            }, {
-                "name": "entity.name.type.enum",
-                "match": "%NOTIFY-([0-9A-F]|DEAD)%"
-            }]
+        "action-keyword": {
+            "patterns": [
+                {
+                    "name": "entity.name.function",
+                    "match": "%(DARK_GREEN|GREEN|GOLD|TAN|BLUE|GRAY|WHITE|BLACK|YELLOW|ORANGE|PURPLE|RED|CORAL|SAGE|TEAL|LIGHT_GRAY)%"
+                },
+                {
+                    "name": "variable.object.property",
+                    "match": "%(PRICE|SELLPRICE|BUYPRICE|ILVL|SOCKETS|CODE|NAME|BASENAME|GEMTYPE|GEMLEVEL|RUNENAME|RUNENUM|QTY|ALVL|CRAFTALVL|REROLLALVL|CLVL|LVLREQ|RANGE|WPNSPD)%"
+                },
+                {
+                    "name": "variable.object.property",
+                    "match": "%(STAT[0-9]{0,3}|ITEMSTAT[0-9]{0,3}|CHARSTAT[0-9]{1,3}|CLSK[0-6]|ALLSK|TABSK[0-9]{1,2}|SK[0-9]{2,3})%"
+                },
+                {
+                    "name": "variable.object.property",
+                    "match": "%(DEF|ED|EDEF|EDAM|AR|RES|FRES|CRES|LRES|PRES|LIFE|MANA|STR|DEX|IAS|FCR|FHR|FBR|FRW|MINDMG|MAXDMG|MFIND|GFIND|SOCK)%"
+                },
+                {
+                    "name": "keyword.control",
+                    "match": "%(CONTINUE|NL|CL)%"
+                },
+                {
+                    "name": "entity.name.type.enum",
+                    "match": "%(MAP(-[0-9A-F]{2})?|DOT(-[0-9A-F]{2})?|PX(-[0-9A-F]{2})?|BORDER(-[0-9A-F]{2})?|SOUNDID-[0-9A-F])%"
+                },
+                {
+                    "name": "entity.name.type.enum",
+                    "match": "%NOTIFY-([0-9A-F]|DEAD)%"
+                }
+            ]
         },
-        "action-string":{
-            "patterns": [{
-                "name": "string",
-                "match": "(/(?!/)|[^%/]+)"
-            }]
+        "action-string": {
+            "patterns": [
+                {
+                    "name": "string",
+                    "match": "(/(?!/)|[^%/{}/]+)"
+                },
+                {
+                    "name": "support.module",
+                    "match": "[{}]"
+                }
+            ]
         },
         "comment-line": {
             "name": "comment",

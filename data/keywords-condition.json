@@ -13,8 +13,6 @@
             "name": "Elite tier items"
         },
 
-
-
         {
             "id": "INF",
             "name": "Inferior items"
@@ -52,8 +50,6 @@
             "name": "Runeword items"
         },
 
-
-
         {
             "id": "CL1",
             "name": "Druid pelts"
@@ -82,8 +78,6 @@
             "id": "CL7",
             "name": "Amazon weapons"
         },
-
-
 
         {
             "id": "WEAPON",
@@ -142,8 +136,6 @@
             "name": "Scepters"
         },
 
-
-
         {
             "id": "ARMOR",
             "name": "All armors"
@@ -176,8 +168,6 @@
             "id": "EQ7",
             "name": "Circlets"
         },
-
-
 
         {
             "id": "ALLSK",
@@ -212,8 +202,6 @@
             "name": "Assassin Skills"
         },
 
-
-
         {
             "id": "TABSK0",
             "name": "Amazon: Bow & Crossbow"
@@ -239,7 +227,7 @@
             "id": "TABSK10",
             "name": "Sorceress: Cold"
         },
-        
+
         {
             "id": "TABSK16",
             "name": "Necromancer: Curses"
@@ -304,8 +292,6 @@
             "id": "TABSK50",
             "name": "Assassin: Martial Arts"
         },
-
-
 
         {
             "id": "ED",
@@ -378,6 +364,10 @@
         {
             "id": "DIFF",
             "name": "Current game difficulty (0-2)"
+        },
+        {
+            "id": "GOLD",
+            "name": "Gold value of the item"
         }
     ]
 }
