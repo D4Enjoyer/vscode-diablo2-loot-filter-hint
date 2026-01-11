@@ -30,8 +30,18 @@
             "end": "(?=$|//)",
             "patterns": [
                 { "match": "\\s+" },
+                {
+                    "begin": "(?=[^/\\n]*%)",
+                    "end": "(?=$|//)",
+                    "patterns": [
+                        { "include": "#action-keyword" },
+                        { "include": "#action-alias" },
+                        { "include": "#action-string" }
+                    ]
+                },
                 { "include": "#condition" },
                 { "include": "#action-keyword" },
+                { "include": "#action-alias" },
                 { "include": "#action-string" }
             ]
         },
