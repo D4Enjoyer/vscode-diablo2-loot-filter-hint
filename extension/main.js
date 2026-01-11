@@ -81,6 +81,28 @@ function isTextPossibleKeyword(text = "") {
     return text.match(/^[A-Z0-9_-]+$/);
 }
 
+/**
+ * @param {any} document
+ * @param {string} aliasName
+ * @returns {string | null}
+ */
+function getAliasValue(document, aliasName) {
+    if (!aliasName) return null;
+    const text = document.getText();
+    const escapedName = aliasName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`^Alias\\[${escapedName}\\]:\\s*(.*)$`, 'm');
+    const match = text.match(regex);
+    if (match) {
+        let value = match[1];
+        const commentIndex = value.indexOf('//');
+        if (commentIndex !== -1) {
+            value = value.substring(0, commentIndex);
+        }
+        return value.trim();
+    }
+    return null;
+}
+
 function activate(context) {
     let subscriptions = context.subscriptions;
     let disposable = [];
@@ -156,6 +178,13 @@ function activate(context) {
             // Alias content can be either conditions or actions
             if (isTextInAliasContent(textBeforeCursor)) {
                 hover = hintDataManager.getConditionHoverItem(word) || hintDataManager.getActionHoverItem(word);
+            }
+
+            if (!hover) {
+                const aliasValue = getAliasValue(document, word);
+                if (aliasValue) {
+                    hover = new vscode.Hover(aliasValue); 
+                }
             }
 
             // return clone to avoid positioning bug

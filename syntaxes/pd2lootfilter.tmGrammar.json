@@ -28,7 +28,12 @@
         "alias-content": {
             "begin": "(?<=Alias\\[[^\\]]*\\]:)",
             "end": "(?=$|//)",
-            "patterns": [{ "include": "#condition" }, { "include": "#action-keyword" }]
+            "patterns": [
+                { "match": "\\s+" },
+                { "include": "#condition" },
+                { "include": "#action-keyword" },
+                { "include": "#action-string" }
+            ]
         },
         "item-display-filter-name": {
             "begin": "ItemDisplayFilterName\\[",
@@ -59,7 +64,7 @@
             "patterns": [
                 {
                     "name": "support.module",
-                    "match": "(!|<|>|=|OR|AND)"
+                    "match": "(!|<|>|=|OR|AND|\\(|\\))"
                 }
             ]
         },
