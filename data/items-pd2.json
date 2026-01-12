@@ -449,6 +449,22 @@
                 {
                     "id": "cm2f",
                     "name": "Hellfire Ashes"
+                },
+                {
+                    "id": "luca",
+                    "name": "Shadow of Hatred"
+                },
+                {
+                    "id": "lucb",
+                    "name": "Demonic Insigna"
+                },
+                {
+                    "id": "lucc",
+                    "name": "Talisman of Transgression"
+                },
+                {
+                    "id": "lucd",
+                    "name": "Flesh of Malic"
                 }
             ]
         },
